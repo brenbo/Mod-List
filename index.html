@@ -24,7 +24,7 @@
         /* Top Header Area */
         .header-bar {
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .screen-title {
@@ -44,28 +44,53 @@
         /* Main Content Container Box */
         .main-container {
             width: 100%;
-            max-width: 650px;
+            max-width: 680px;
             background: rgba(0, 0, 0, 0.75);
             border: 4px solid #3c3c3c;
-            padding: 25px;
+            padding: 20px;
             box-shadow: 0px 0px 20px #000;
             box-sizing: border-box;
         }
 
-        /* Large Download Action Button Area */
-        .download-zone {
-            text-align: center;
-            margin-bottom: 30px;
-            padding-bottom: 25px;
+        /* Category Header Divider */
+        .section-header {
+            color: #ffff55;
+            font-size: 15px;
+            font-weight: bold;
+            margin: 15px 0 10px 0;
+            text-shadow: 1px 1px 0px #555500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             border-bottom: 2px solid #3c3c3c;
+            padding-bottom: 3px;
         }
 
-        .download-prompt {
-            font-size: 15px;
-            color: #ffff55;
+        /* Mod Link Row Matrix */
+        .mod-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px 15px;
+            margin-bottom: 8px;
+            border: 2px solid transparent;
+        }
+
+        .mod-row:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid #ffffff;
+        }
+
+        .mod-name-label {
+            font-weight: bold;
+            font-size: 14px;
             text-shadow: 1px 1px 0px #000;
-            margin-bottom: 15px;
-            line-height: 1.4;
+        }
+        
+        .mod-type-badge {
+            font-size: 11px;
+            padding-left: 8px;
+            color: #aaaaaa;
         }
 
         /* Precise Retro Gray Button Styling */
@@ -76,14 +101,13 @@
             border-left-color: #b2b2b2;
             color: #e0e0e0;
             text-align: center;
-            padding: 12px 24px;
-            font-size: 15px;
+            padding: 6px 16px;
+            font-size: 12px;
             text-shadow: 1px 1px 0px #373737;
             cursor: pointer;
             text-decoration: none;
-            box-shadow: 0 3px 0px #000;
+            box-shadow: 0 2px 0px #000;
             display: inline-block;
-            font-weight: bold;
         }
 
         .mc-btn:hover {
@@ -95,6 +119,12 @@
         }
 
         /* Instructions Text Block Layout */
+        .instructions-divider {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 4px dashed #3c3c3c;
+        }
+
         .instructions-header {
             font-size: 18px;
             text-align: center;
@@ -145,40 +175,96 @@
 
     <div class="main-container">
         
-        <!-- TOP DOWNLOAD BUTTON AREA -->
-        <div class="download-zone">
-            <div class="download-prompt">
-                Click below to go directly to Modrinth to download all the server mods!<br>
-                (Includes: Voice Chat, JEI, AppleSkin, and WTHIT)
+        <!-- DIRECT MOD LINKS CATALOG -->
+        <div class="section-header">Highly Recommended</div>
+        
+        <div class="mod-row">
+            <div>
+                <span class="mod-name-label">🎙️ Simple Voice Chat</span>
+                <span class="mod-type-badge">(Required for Proximity Audio)</span>
             </div>
-            <!-- REPLACE THE LINK BELOW WITH YOUR MODRINTH PACK URL IF YOU MAKE A CUSTOM ONE -->
-            <a href="https://modrinth.com" target="_blank" class="mc-btn">Go to Modrinth Page</a>
+            <a href="https://modrinth.com" target="_blank" class="mc-btn">Download</a>
         </div>
 
-        <!-- PRIORITY INSTRUCTIONS SECTION -->
-        <div class="instructions-header">Installation Instructions</div>
-        
-        <!-- PART 1: MODS FIRST -->
-        <div class="instruction-section">
-            <span class="section-title mods-title">[Part 1: Game Mod Installation]</span>
-            <ol>
-                <li>Make sure your local game launcher runs a standard version of <span style="color: #55ffff;">Fabric Loader</span>.</li>
-                <li>Download your mod files from the Modrinth page button above.</li>
-                <li>Press <span style="color: #ff55ff;">Windows Key + R</span> on your keyboard, type <span style="color: #55ff55;">%appdata%\.minecraft</span> and hit Enter.</li>
-                <li>Open the folder named exactly: <span style="color: #ffff55;">mods</span> (if it is missing, right-click and create a new folder named mods here).</li>
-                <li>Drag and drop your downloaded core mod <span style="color: #ffff55;">.jar</span> files directly inside this folder.</li>
-            </ol>
+        <div class="section-header">Recommended Utility Mods</div>
+
+        <div class="mod-row">
+            <div>
+                <span class="mod-name-label">📖 Just Enough Items (JEI)</span>
+                <span class="mod-type-badge">(Recipe Layout Menu)</span>
+            </div>
+            <a href="https://curseforge.com" target="_blank" class="mc-btn">Download</a>
         </div>
-        
-        <!-- PART 2: SHADERS SECOND -->
-        <div class="instruction-section">
-            <span class="section-title shaders-title">[Part 2: Optional Graphics Shaders Installation]</span>
-            <ol>
-                <li>If you want shaders, ensure you grab the <span style="color: #55ffff;">Sodium</span> and <span style="color: #55ffff;">Iris</span> mod files from Modrinth and place them into the same <span style="color: #ffff55;">mods</span> folder alongside your other mods.</li>
-                <li>Go back out to the main <span style="color: #55ff55;">.minecraft</span> directory folder and open or create a folder named exactly: <span style="color: #ffff55;">shaderpacks</span>.</li>
-                <li>Drag the downloaded <span style="color: #ff55ff;">ComplementaryUnbound.zip</span> archive directly inside this folder (<span style="color:#ff5555; font-weight:bold;">do not unzip or extract it!</span>).</li>
-                <li>Launch Minecraft, go to Options > Video Settings > Shader Packs, highlight the pack, and click to activate it!</li>
-            </ol>
+
+        <div class="mod-row">
+            <div>
+                <span class="mod-name-label">🍎 AppleSkin</span>
+                <span class="mod-type-badge">(Saturation & Hunger HUD)</span>
+            </div>
+            <a href="https://modrinth.com" target="_blank" class="mc-btn">Download</a>
+        </div>
+
+        <div class="mod-row">
+            <div>
+                <span class="mod-name-label">🔍 WTHIT</span>
+                <span class="mod-type-badge">(What Look Indicator & Mob Health)</span>
+            </div>
+            <a href="https://modrinth.com" target="_blank" class="mc-btn">Download</a>
+        </div>
+
+        <div class="section-header">Optional Visual Upgrades</div>
+
+        <div class="mod-row">
+            <div>
+                <span class="mod-name-label">✨ Complementary Unbound Shaders</span>
+                <span class="mod-type-badge">(Graphics Lighting Pack)</span>
+            </div>
+            <a href="https://modrinth.com" target="_blank" class="mc-btn">Download</a>
+        </div>
+
+        <div class="mod-row">
+            <div>
+                <span class="mod-name-label">👁️ Iris Shaders Engine</span>
+                <span class="mod-type-badge">(Shaders Framework Wrapper)</span>
+            </div>
+            <a href="https://modrinth.com" target="_blank" class="mc-btn">Download</a>
+        </div>
+
+        <div class="mod-row">
+            <div>
+                <span class="mod-name-label">🧪 Sodium Optimization</span>
+                <span class="mod-type-badge">(FPS Booster Engine)</span>
+            </div>
+            <a href="https://modrinth.com" target="_blank" class="mc-btn">Download</a>
+        </div>
+
+
+        <!-- PRIORITY INSTRUCTIONS SECTION CONTAINER -->
+        <div class="instructions-divider">
+            <div class="instructions-header">Installation Instructions</div>
+            
+            <!-- PART 1: MODS FIRST -->
+            <div class="instruction-section">
+                <span class="section-title mods-title">[Part 1: Game Mod Installation]</span>
+                <ol>
+                    <li>Make sure your local game launcher runs a standard version of <span style="color: #55ffff;">Fabric Loader</span>.</li>
+                    <li>Click the gray <span style="color: #55ff55;">Download</span> button next to each required item above to download the files.</li>
+                    <li>Press <span style="color: #ff55ff;">Windows Key + R</span> on your keyboard, type <span style="color: #55ff55;">%appdata%\.minecraft</span> and hit Enter.</li>
+                    <li>Open the folder named exactly: <span style="color: #ffff55;">mods</span> (if it is missing, right-click and create a new folder named mods here).</li>
+                    <li>Drag and drop all downloaded core mod <span style="color: #ffff55;">.jar</span> files directly inside this folder.</li>
+                </ol>
+            </div>
+            
+            <!-- PART 2: SHADERS SECOND -->
+            <div class="instruction-section">
+                <span class="section-title shaders-title">[Part 2: Optional Graphics Shaders Installation]</span>
+                <ol>
+                    <li>If you want shaders, ensure you grab the <span style="color: #55ffff;">Sodium</span> and <span style="color: #55ffff;">Iris</span> mod files from the list above and place them into the same <span style="color: #ffff55;">mods</span> folder alongside your other mods.</li>
+                    <li>Go back out to the main <span style="color: #55ff55;">.minecraft</span> directory folder and open or create a folder named exactly: <span style="color: #ffff55;">shaderpacks</span>.</li>
+                    <li>Drag the downloaded <span style="color: #ff55ff;">ComplementaryUnbound.zip</span> archive directly inside this folder (<span style="color:#ff5555; font-weight:bold;">do not unzip or extract it!</span>).</li>
+                    <li>Launch Minecraft, go to Options > Video Settings > Shader Packs, highlight the pack, and click to activate it!</li>
+                </ol>
+            </div>
         </div>
 
     </div>
