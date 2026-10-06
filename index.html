@@ -17,9 +17,9 @@
             flex-direction: column;
             align-items: center;
             height: 100vh;
-            justify-content: space-between;
             overflow: hidden;
             user-select: none;
+            box-sizing: border-box;
         }
 
         /* Top Header Navigation Overlay Bar */
@@ -29,6 +29,7 @@
             padding-top: 15px;
             padding-bottom: 10px;
             background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 80%, rgba(0,0,0,0) 100%);
+            flex-shrink: 0;
         }
 
         .screen-title {
@@ -36,7 +37,7 @@
             font-size: 20px;
             font-weight: normal;
             text-shadow: 2px 2px 0px #3f3f3f;
-            margin-bottom: 3px;
+            margin: 0 0 3px 0;
         }
 
         .server-address-display {
@@ -45,7 +46,7 @@
             text-shadow: 1px 1px 0px #00aaaa;
         }
 
-        /* Dark Center Scroll Frame Layout Wrapper */
+        /* Dark Center Scroll Frame Layout Wrapper - FIXED SCROLLING */
         .server-container {
             width: 100%;
             max-width: 680px;
@@ -56,6 +57,7 @@
             padding: 10px 0;
             border-top: 4px solid #121212;
             border-bottom: 4px solid #121212;
+            min-height: 0; /* Crucial fix for inner container flex compression */
         }
 
         /* Section Category Headers */
@@ -97,6 +99,7 @@
             justify-content: center;
             align-items: center;
             font-size: 20px;
+            flex-shrink: 0;
         }
 
         .mod-details {
@@ -134,15 +137,16 @@
             text-shadow: 1px 1px 0px #1a1a1a;
         }
 
-        /* Bottom Control Button Container Grid */
+        /* Bottom Control Button Container Grid - FIXED PERSISTENCE */
         .footer-bar {
             width: 100%;
             background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 80%, rgba(0,0,0,0) 100%);
-            padding-bottom: 20px;
-            padding-top: 12px;
+            padding-bottom: 25px;
+            padding-top: 15px;
             display: flex;
             justify-content: center;
             gap: 12px;
+            flex-shrink: 0;
         }
 
         /* Precise Retro Gray Button Styling */
@@ -239,7 +243,7 @@
 <body>
 
     <div class="header-bar">
-        <div class="screen-title">Mods to Get</div>
+        <h1 class="screen-title">Mods to Get</h1>
         <div class="server-address-display">Server IP: pgsql-linkage.tun.ply.gg</div>
     </div>
 
@@ -294,8 +298,3 @@
                 </div>
                 <div class="mod-description" style="color: #aaaaaa;">Displays an informational UI banner tracking the specific block names and real-time active mob health values you point at.</div>
             </div>
-        </div>
-
-        <!-- SECTION 3 -->
-        <div class="section-header">Optional Aesthetics</div>
-
