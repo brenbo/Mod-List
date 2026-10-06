@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mods to Get</title>
+    <style>
+        /* Authentic Minecraft Dirt Tiled Texture Background */
+        body {
+            background: #2b2b2b url('https://minecraft.net') repeat;
+            background-size: 64px;
+            image-rendering: pixelated;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            justify-content: space-between;
+            overflow: hidden;
+            user-select: none;
+        }
+
+        /* Top Header Navigation Overlay Bar */
+        .header-bar {
+            width: 100%;
+            text-align: center;
+            padding-top: 15px;
+            padding-bottom: 10px;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 80%, rgba(0,0,0,0) 100%);
+        }
+
+        .screen-title {
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: normal;
+            text-shadow: 2px 2px 0px #3f3f3f;
+            margin-bottom: 3px;
+        }
+
+        .server-address-display {
+            color: #55ffff;
+            font-size: 13px;
+            text-shadow: 1px 1px 0px #00aaaa;
+        }
+
+        /* Dark Center Scroll Frame Layout Wrapper */
+        .server-container {
+            width: 100%;
+            max-width: 680px;
+            flex-grow: 1;
+            background: rgba(0, 0, 0, 0.6);
+            box-shadow: inset 0px 4px 12px rgba(0,0,0,0.9), inset 0px -4px 12px rgba(0,0,0,0.9);
+            overflow-y: auto;
+            padding: 10px 0;
+            border-top: 4px solid #121212;
+            border-bottom: 4px solid #121212;
+        }
+
+        /* Section Category Headers */
+        .section-header {
+            color: #ffff55;
+            font-size: 14px;
+            font-weight: bold;
+            padding: 10px 25px 4px 25px;
+            text-shadow: 1px 1px 0px #555500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Server Entry Selection Slots */
+        .server-slot {
+            display: flex;
+            align-items: center;
+            padding: 6px 14px;
+            margin: 2px auto;
+            max-width: 640px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            color: #a0a0a0;
+            position: relative;
+        }
+
+        .server-slot:hover, .server-slot.selected {
+            background: rgba(255, 255, 255, 0.06);
+            border: 2px solid #ffffff;
+        }
+
+        .mod-icon {
+            width: 40px;
+            height: 40px;
+            border: 2px solid #555555;
+            background-color: #151515;
+            margin-right: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+        }
+
+        .mod-details {
+            flex-grow: 1;
+        }
+
+        .mod-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .mod-title {
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 14px;
+            text-shadow: 1px 1px 0px #3f3f3f;
+        }
+
+        .mod-version {
+            color: #55ff55;
+            font-size: 12px;
+            text-shadow: 1px 1px 0px #00aa00;
+        }
+        
+        .optional-tag {
+            color: #ff55ff;
+            text-shadow: 1px 1px 0px #aa00aa;
+        }
+
+        .mod-description {
+            margin-top: 2px;
+            font-size: 12px;
+            line-height: 1.3;
+            text-shadow: 1px 1px 0px #1a1a1a;
+        }
+
+        /* Bottom Control Button Container Grid */
+        .footer-bar {
+            width: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 80%, rgba(0,0,0,0) 100%);
+            padding-bottom: 20px;
+            padding-top: 12px;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        /* Precise Retro Gray Button Styling */
+        .mc-btn {
+            background: #767676;
+            border: 2px solid #000000;
+            border-top-color: #b2b2b2;
+            border-left-color: #b2b2b2;
+            color: #e0e0e0;
+            text-align: center;
+            width: 165px;
+            padding: 10px 0;
+            font-size: 13px;
+            text-shadow: 1px 1px 0px #373737;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 2px 0px #000;
+            display: inline-block;
+            box-sizing: border-box;
+        }
+
+        .mc-btn:hover {
+            background: #7ca1ff;
+            color: #ffffff;
+            border-top-color: #cce0ff;
+            border-left-color: #cce0ff;
+            text-shadow: 1px 1px 0px #1c3d75;
+        }
+
+        .mc-btn.disabled {
+            background: #4a4a4a;
+            color: #888888;
+            border-top-color: #555;
+            border-left-color: #555;
+            cursor: not-allowed;
+            text-shadow: none;
+            box-shadow: none;
+        }
+
+        /* Popup Guide Modal Overlay Layout Frame */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-box {
+            background: #2c2c2c url('https://minecraft.net') repeat;
+            background-size: 64px;
+            border: 4px solid #3c3c3c;
+            width: 540px;
+            padding: 20px;
+            box-shadow: 0px 0px 20px #000;
+            color: #ffffff;
+            text-align: left;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            text-align: center;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 0px #000;
+            color: #ffff55;
+        }
+
+        .modal-body {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border: 2px solid #111;
+            font-size: 13px;
+            line-height: 1.6;
+            max-height: 320px;
+            overflow-y: auto;
+            text-shadow: 1px 1px 0px #000;
+            color: #e0e0e0;
+        }
+
+        .modal-footer {
+            margin-top: 15px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-bar">
+        <div class="screen-title">Mods to Get</div>
+        <div class="server-address-display">Server IP: pgsql-linkage.tun.ply.gg</div>
+    </div>
+
+    <!-- Center Display List Frame Area -->
+    <div class="server-container">
+        
+        <!-- SECTION 1 -->
+        <div class="section-header">Highly Recommended</div>
+        
+        <div class="server-slot" onclick="selectMod(this, 'https://modrinth.com')">
+            <div class="mod-icon">🎙️</div>
+            <div class="mod-details">
+                <div class="mod-header-row">
+                    <span class="mod-title">Simple Voice Chat</span>
+                    <span class="mod-version">Required</span>
+                </div>
+                <div class="mod-description" style="color: #aaaaaa;">Enables proxy proximity voice audio connection channels! <br><span style="color: #ff5555;">Press "V" in-game to configure your mic settings.</span></div>
+            </div>
+        </div>
+
+        <!-- SECTION 2 -->
+        <div class="section-header">Recommended</div>
+
+        <div class="server-slot" onclick="selectMod(this, 'https://curseforge.com')">
+            <div class="mod-icon">📖</div>
+            <div class="mod-details">
+                <div class="mod-header-row">
+                    <span class="mod-title">Just Enough Items (JEI)</span>
+                    <span class="mod-version">Sync Enabled</span>
+                </div>
+                <div class="mod-description" style="color: #aaaaaa;">Provides a full item recipe lookup dashboard grid cleanly integrated inside your inventory window UI.</div>
+            </div>
+        </div>
+
+        <div class="server-slot" onclick="selectMod(this, 'https://modrinth.com')">
+            <div class="mod-icon">🍎</div>
+            <div class="mod-details">
+                <div class="mod-header-row">
+                    <span class="mod-title">AppleSkin</span>
+                    <span class="mod-version">Sync Enabled</span>
+                </div>
+                <div class="mod-description" style="color: #aaaaaa;">Adds useful HUD tooltips tracking food saturation values and predictive status healing health flags.</div>
+            </div>
+        </div>
+
+        <div class="server-slot" onclick="selectMod(this, 'https://modrinth.com')">
+            <div class="mod-icon">🔍</div>
+            <div class="mod-details">
+                <div class="mod-header-row">
+                    <span class="mod-title">WTHIT (What The Hell Is That)</span>
+                    <span class="mod-version">Client Mod</span>
+                </div>
+                <div class="mod-description" style="color: #aaaaaa;">Displays an informational UI banner tracking the specific block names and real-time active mob health values you point at.</div>
+            </div>
+        </div>
+
+        <!-- SECTION 3 -->
+        <div class="section-header">Optional Aesthetics</div>
+
