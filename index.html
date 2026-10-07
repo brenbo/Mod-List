@@ -1,249 +1,233 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minecraft Server Mod Downloader</title>
     <style>
-        @font-face {
-            font-family: 'Minecraftia';
-            src: url('https://db.onlinewebfonts.com/t/c1103f6f1401f786d5cb082e66f8e778.woff2') format('woff2');
-        }
+        /* Minecraft Font Face Simulation */
+        @import url('https://cdnfonts.com');
 
         * {
             box-sizing: border-box;
             user-select: none;
-            -webkit-user-drag: none;
         }
 
         body {
+            background-color: #2c2c2c;
+            /* Authentic Base64 Embedded Tileable 2D Dirt Background */
+            background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAEDElEQVR42u2b0XIDIQhE5///6S7ptXN2wlhgS7YznS869yAsSNo++/v7e7f72m+8A/wGeAco7wB/Zf/g4OBe6urq6npd6r/scR9938P13+9yv7u7e6/XpY6Nj8bvvf6VffR9K9ePjI+67uN67ff7uK5z6L6VfdTxUed93df6mOfRfa3MbyXgOfwO8BtgvAP8vAL8vAL8vAK+vAK+XgHvV8D7XfD1Cni9Al6vgOcV8P074P0VcH8v3F8BbyvgewW8rgDXPdyvPe7jefR9K9ePjI+67uN67ff7uK5z6L6VfdTxUed93df6mOfRfa3MbyXgOfwO8BtgvAP8vAL8vAL+vAK+XgHvV8D7XfD1Cni9Al6vgOcV8P074P0VcH8v3F8BbyvgewW8rgDXPdyvPe7jefR9K9ePjI+67uN67ff7uK5z6L6VfdTxUed93df6mOfRfa3MbyXgOfwO8BtgvAP8vAL8vAL+vAK+XgHvV8D7XfD1Cni9Al6vgOcV8P074P0VcH8v3F8BbyvgewW8rgDXPdyvPe7jefR9K9ePjI+67uN67ff7uK5z6L6VfdTxUed93df6mOfRfa3MbyXgOfwO8BtgvAP8vAL8vAL+vAK+XgHvV8D7XfD1Cni9Al6vgOcV8P074P0VcH8v3F8BbyvgewW8rgDXPdyvPe7jefR9K9ePjI+67uN67ff7uK5z6L6VfdTxUed93df6mOfRfa3MbyXgOfwO8BtgvAP8vAL8vAL+vAK+XgHvV8D7XfD1Cni9Al6vgOcV8P074P0VcH8v3F8BbyvgewW8rgDXPdyvPe7jefR9K9ePjI+67uN67ff7uK5z6L6VfdTxUed93df6mOfRfa3MbyXgOfwO8BtgvAP8vAL8vAL+vAK+XgHvV8D7XfD1Cni9Al6vgOcV8P074P0VcH8v3F8BbyvgewW8rgDXPdyvPe7jefR9K9ePjI+67uN67ff7uK5z6L6VfdTxUed93df6mOfRfa3MbyXgOfwO8BtgvAP8vAL8vAL+vAK+XgHvV8D7XfD1Cni9Al6vgOcV8P074P0VcH8v3F8BbyvgewW8rgDXPdyvPe7jefR9K9ePjI+67uN67ff7uK5z6L6VfdTxUed93df6mOfRfa3MbyXgOfwO8BtgvAP8vAL8vAL+vAK+XgHvV8D7XfD1Cni9Al6vgOcV8P074P0VcH8v3F8BbyvgewW8rgDXPdyvPe7jefR9K9ePjI+67uN67ff7uK5z6L6VfdTxUed93df6mOfRfa3MbyXgOfwO8BtgvAP8vAL8vAL+vAK+XgHvV8D7XfD1Cni9Al6vgOcV8P074P0VcH8v3F8BbyvgewW8rgDXPdyvPe7jefR9K9ePjI+67uN67ff7uK5z6L6VfdTxUed93df6mOfRfa3MbyXgOfwO/wD7g3T86XUu4wAAAAASUVORK5CYII=");
+            background-size: 64px 64px;
+            font-family: 'Minecraftia', sans-serif;
+            color: #AAAAAA;
             margin: 0;
             padding: 0;
-            background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://images.gamebanana.com/img/ss/smap/5b0db04b77f93.jpg');
-            background-repeat: repeat;
-            background-size: 64px;
-            image-rendering: pixelated;
-            font-family: 'Minecraftia', 'Courier New', monospace;
-            color: #AAAAAA;
             display: flex;
             flex-direction: column;
             height: 100vh;
             overflow: hidden;
         }
 
-        /* Top Header Overlay */
+        /* Top and Bottom Dark Layout Overlays */
         .header {
-            height: 52px;
-            background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.4));
-            border-bottom: 4px solid #121212;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.8);
-            z-index: 10;
-        }
-
-        .header h1 {
+            background: rgba(0, 0, 0, 0.8);
+            border-bottom: 4px solid #3c3c3c;
+            text-align: center;
+            padding: 20px;
             color: #FFFFFF;
-            font-size: 16px;
-            font-weight: normal;
-            margin: 0;
-            text-shadow: 2px 2px 0px #3F3F3F;
+            font-size: 18px;
+            text-shadow: 2px 2px #000000;
         }
 
-        /* Scrollable Container Window */
+        .footer {
+            background: rgba(0, 0, 0, 0.8);
+            border-top: 4px solid #3c3c3c;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Server List Content Box */
         .server-list-container {
             flex: 1;
             overflow-y: auto;
-            padding: 12px 0;
-            width: 100%;
             max-width: 800px;
+            width: 100%;
             margin: 0 auto;
+            padding: 10px 20px;
         }
 
-        /* Customize Scrollbar to look like Minecraft */
+        /* Classic Scrollbar styling */
         .server-list-container::-webkit-scrollbar {
             width: 12px;
         }
         .server-list-container::-webkit-scrollbar-track {
-            background: #111111;
-            border-left: 2px solid #333333;
+            background: rgba(0, 0, 0, 0.5);
         }
         .server-list-container::-webkit-scrollbar-thumb {
-            background: #666666;
-            border: 2px solid #111111;
+            background: #8B8B8B;
+            border: 2px solid #3C3C3C;
         }
 
-        /* Row Configuration */
+        /* Individual Mod List Rows */
         .mod-row {
             display: flex;
             align-items: center;
-            padding: 6px 12px;
-            margin-bottom: 4px;
+            padding: 8px;
+            margin-bottom: 8px;
             border: 2px solid transparent;
+            background: rgba(0, 0, 0, 0.4);
             cursor: pointer;
             position: relative;
         }
 
         .mod-row:hover {
-            background-color: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.05);
         }
 
         .mod-row.selected {
-            background-color: rgba(0, 0, 0, 0.4);
             border: 2px solid #FFFFFF;
+            background: rgba(255, 255, 255, 0.1);
         }
 
-        .mod-icon-wrapper {
+        /* Mod Icon Graphics */
+        .mod-icon {
             width: 48px;
             height: 48px;
-            background-color: #111111;
-            border: 2px solid #555555;
+            image-rendering: pixelated;
+            margin-right: 15px;
+            border: 2px solid #3c3c3c;
+            background: #111111;
+            flex-shrink: 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 12px;
-            flex-shrink: 0;
         }
-
-        .mod-icon {
+        .mod-icon img {
             width: 100%;
             height: 100%;
-            object-fit: contain;
-            image-rendering: pixelated;
+            object-fit: cover;
         }
 
+        /* Metadata Details */
         .mod-details {
             flex: 1;
             display: flex;
             flex-direction: column;
-            overflow: hidden;
-            padding-right: 40px;
         }
 
-        .mod-title-line {
-            display: flex;
-            align-items: baseline;
-            gap: 8px;
-        }
-
-        .mod-name {
-            color: #FFFF55; /* Yellow text (§e) */
+        .mod-title {
+            color: #FFFF55; /* Classic Minecraft Yellow */
             font-size: 14px;
-            text-shadow: 2px 2px 0px #3F3F00;
+            text-shadow: 2px 2px #000000;
+            margin-bottom: 2px;
         }
 
-        .mod-version {
-            color: #55FF55; /* Light Green (§a) */
+        .mod-desc {
+            color: #AAAAAA;
             font-size: 11px;
-            text-shadow: 1px 1px 0px #003F00;
+            text-shadow: 1px 1px #000000;
+            line-height: 1.4;
         }
 
-        .mod-description {
-            color: #AAAAAA; /* Gray text (§7) */
-            font-size: 12px;
-            margin-top: 4px;
-            text-shadow: 1px 1px 0px #222222;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .mod-status-error {
-            color: #FF5555; /* Red (§c) */
-            font-size: 11px;
-            margin-top: 2px;
-            text-shadow: 1px 1px 0px #3F0000;
-        }
-
-        /* Connection Ping / State Column indicators */
-        .mod-status-indicator {
-            position: absolute;
-            right: 16px;
-            top: 50%;
-            transform: translateY(-50%);
+        /* Connection Ping / State Block */
+        .status-container {
             display: flex;
-            align-items: center;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: center;
+            margin-left: 15px;
+            min-width: 80px;
         }
 
-        /* Custom Pixel Ping Bars */
-        .ping-bars {
+        .version-tag {
+            color: #55FF55; /* Classic Green */
+            font-size: 11px;
+            text-shadow: 1px 1px #000000;
+            margin-bottom: 4px;
+        }
+
+        /* Minecraft 5-Bar Connection Indicator CSS */
+        .signal-bars {
             display: flex;
             align-items: flex-end;
             gap: 2px;
-            width: 20px;
-            height: 16px;
+            width: 18px;
+            height: 14px;
         }
-
-        .ping-bar {
+        .bar {
             width: 2px;
             background-color: #55FF55;
-            box-shadow: 1px 1px 0px #003F00;
+            box-shadow: 1px 1px #000000;
         }
-        .ping-bar:nth-child(1) { height: 20%; }
-        .ping-bar:nth-child(2) { height: 40%; }
-        .ping-bar:nth-child(3) { height: 60%; }
-        .ping-bar:nth-child(4) { height: 80%; }
-        .ping-bar:nth-child(5) { height: 100%; }
+        .bar-1 { height: 20%; }
+        .bar-2 { height: 40%; }
+        .bar-3 { height: 60%; }
+        .bar-4 { height: 80%; }
+        .bar-5 { height: 100%; }
 
-        .cross-indicator {
+        /* Offline Styles */
+        .mod-row.offline {
+            cursor: not-allowed;
+            opacity: 0.8;
+        }
+        .mod-row.offline .mod-title {
+            color: #AAAAAA;
+        }
+        .mod-row.offline .version-tag {
+            color: #FF5555;
+        }
+        .offline-cross {
             color: #FF5555;
             font-size: 16px;
             font-weight: bold;
-            text-shadow: 2px 2px 0px #3F0000;
+            text-shadow: 1px 1px #000000;
         }
 
-        /* Bottom Controls Board Footer */
-        .footer {
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.9));
-            border-top: 4px solid #121212;
-            padding: 16px 0;
+        /* Bottom Row Control Buttons */
+        .button-row {
+            display: flex;
+            gap: 10px;
             width: 100%;
-            z-index: 10;
+            max-width: 600px;
+            justify-content: center;
         }
 
-        .button-grid {
-            max-width: 620px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            padding: 0 10px;
-        }
-
-        /* Real Minecraft Brick Buttons Style */
         .mc-btn {
-            background-color: #4A4A4A;
+            flex: 1;
+            height: 40px;
+            background: #5c5c5c;
             border: 2px solid #000000;
-            box-shadow: inset -2px -2px 0px #2A2A2A, inset 2px 2px 0px #8B8B8B;
+            box-shadow: inset -2px -2px #3a3a3a, inset 2px 2px #aeaeae;
             color: #E0E0E0;
-            font-family: 'Minecraftia', 'Courier New', monospace;
-            font-size: 13px;
-            text-align: center;
-            padding: 10px 0;
+            font-family: 'Minecraftia', sans-serif;
+            font-size: 12px;
+            text-shadow: 2px 2px #000000;
             cursor: pointer;
-            text-shadow: 2px 2px 0px #1E1E1E;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
         }
 
         .mc-btn:hover:not(.disabled) {
-            background-color: #6B6B6B;
-            color: #FFFF55;
-            box-shadow: inset -2px -2px 0px #3B3B3B, inset 2px 2px 0px #A0A0A0;
+            background: #6c8c5c; /* Light green hover accent */
+            box-shadow: inset -2px -2px #4c6c3c, inset 2px 2px #8cbc7c;
+            color: #FFFFFF;
         }
 
         .mc-btn:active:not(.disabled) {
-            background-color: #3A3A3A;
-            box-shadow: inset 2px 2px 0px #1A1A1A, inset -2px -2px 0px #555555;
-            padding-top: 11px;
-            padding-bottom: 9px;
+            box-shadow: inset 2px 2px #3a3a3a, inset -2px -2px #aeaeae;
+            padding-top: 2px;
         }
 
         .mc-btn.disabled {
-            background-color: #262626;
-            color: #7A7A7A;
+            background: #4a4a4a;
             box-shadow: none;
-            border-color: #111111;
-            text-shadow: 1px 1px 0px #0F0F0F;
+            color: #7a7a7a;
+            text-shadow: none;
             cursor: not-allowed;
         }
     </style>
@@ -251,214 +235,50 @@
 <body>
 
     <div class="header">
-        <h1>Play Multiplayer</h1>
+        Play Multiplayer
     </div>
 
     <div class="server-list-container" id="serverList">
-        <!-- Rows will be injected dynamically via JS -->
-    </div>
-
-    <div class="footer">
-        <div class="button-grid">
-            <div class="mc-btn disabled" id="btnDownload">Download Mod</div>
-            <div class="mc-btn" id="btnDownloadAll">Download All Mods</div>
-            <div class="mc-btn" onclick="location.reload()">Refresh List</div>
-            <div class="mc-btn" onclick="alert('Lobby closed.')">Cancel</div>
+        <!-- Simple Voice Chat -->
+        <div class="mod-row" data-slug="simple-voice-chat" onclick="selectMod(this)">
+            <div class="mod-icon">
+                <img src="https://modrinth.com" alt="Voice Chat">
+            </div>
+            <div class="mod-details">
+                <div class="mod-title">Simple Voice Chat</div>
+                <div class="mod-desc">Proximity voice chat with a variety of addons. Required for server connection!</div>
+            </div>
+            <div class="status-container">
+                <div class="version-tag">v2.16.3</div>
+                <div class="signal-bars">
+                    <div class="bar bar-1"></div>
+                    <div class="bar bar-2"></div>
+                    <div class="bar bar-3"></div>
+                    <div class="bar bar-4"></div>
+                    <div class="bar bar-5"></div>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <script>
-        // Directly map mod IDs, assets, slug files to bypass generic search queries 
-        const modsData = [
-            {
-                id: "voicechat",
-                name: "Simple Voice Chat",
-                version: "v2.16.3",
-                desc: "A proximity voice chat for Minecraft with a variety of addons.",
-                icon: "https://cdn.modrinth.com/data/9eGKb6g1/603c40f5451a80d5bfa780d6b63ca0d4940b904d.png",
-                online: true,
-                slug: "simple-voice-chat"
-            },
-            {
-                id: "jei",
-                name: "Just Enough Items (JEI)",
-                version: "v19.3.0",
-                desc: "An item and recipe viewing mod built from the ground up.",
-                icon: "https://cdn.modrinth.com/data/u6w9GZlh/b97cd92244247f12e847c0b240ffbe3426e7e59c.png",
-                online: true,
-                slug: "jei"
-            },
-            {
-                id: "appleskin",
-                name: "AppleSkin",
-                version: "v3.0.3",
-                desc: "Food/hunger-related HUD improvements (Saturation & Hunger HUD).",
-                icon: "https://cdn.modrinth.com/data/EsU8Z7cc/e71d37803e0ed901b0f5ef5b84be5e00b3ae6995.png",
-                online: true,
-                slug: "appleskin"
-            },
-            {
-                id: "jade",
-                name: "Jade",
-                version: "v15.1.5",
-                desc: "Shows information about what block or mob you are looking at.",
-                icon: "https://cdn.modrinth.com/data/5w9g96Sg/49a4f41ca913b8656be444db8f343a8559eb4f34.png",
-                online: true,
-                slug: "jade"
-            },
-            {
-                id: "complementary",
-                name: "Complementary Unbound",
-                version: "v5.3",
-                desc: "Transforming the visuals of Minecraft with exceptional quality.",
-                icon: "https://cdn.modrinth.com/data/g99Uv9S6/3dd35cfb0799f2df479532857038e88e23fdfcf9.png",
-                online: true,
-                slug: "complementary-unbound"
-            },
-            {
-                id: "iris-sodium",
-                name: "Iris & Sodium Engine",
-                version: "Offline",
-                desc: "A modern shader pack loader and optimization engine intended for Fabric compatibility.",
-                icon: "https://cdn.modrinth.com/data/YL577FCq/278b7bdfd92f58e17812586f3f0190be9bf4e4b5.png",
-                online: false,
-                slug: "iris"
-            }
-        ];
-
-        let selectedMod = null;
-        const serverList = document.getElementById('serverList');
-        const btnDownload = document.getElementById('btnDownload');
-        const btnDownloadAll = document.getElementById('btnDownloadAll');
-
-        // Build list layout elements
-        modsData.forEach(mod => {
-            const row = document.createElement('div');
-            row.className = 'mod-row';
-            row.dataset.id = mod.id;
-
-            let statusHTML = '';
-            if (mod.online) {
-                statusHTML = `
-                    <div class="ping-bars">
-                        <div class="ping-bar"></div>
-                        <div class="ping-bar"></div>
-                        <div class="ping-bar"></div>
-                        <div class="ping-bar"></div>
-                        <div class="ping-bar"></div>
-                    </div>
-                `;
-            } else {
-                statusHTML = `<span class="cross-indicator">✕</span>`;
-            }
-
-            row.innerHTML = `
-                <div class="mod-icon-wrapper">
-                    <img class="mod-icon" src="${mod.icon}" alt="${mod.name}" onerror="this.src='https://fallback.modrinth.com/textures/default_icon.png'">
+        <!-- JEI -->
+        <div class="mod-row" data-slug="jei" onclick="selectMod(this)">
+            <div class="mod-icon">
+                <img src="https://modrinth.com" alt="JEI">
+            </div>
+            <div class="mod-details">
+                <div class="mod-title">Just Enough Items (JEI)</div>
+                <div class="mod-desc">Item and recipe viewing mod built from the ground up.</div>
+            </div>
+            <div class="status-container">
+                <div class="version-tag">v19.11.0</div>
+                <div class="signal-bars">
+                    <div class="bar bar-1"></div>
+                    <div class="bar bar-2"></div>
+                    <div class="bar bar-3"></div>
+                    <div class="bar bar-4"></div>
+                    <div class="bar bar-5"></div>
                 </div>
-                <div class="mod-details">
-                    <div class="mod-title-line">
-                        <span class="mod-name">${mod.name}</span>
-                        <span class="mod-version">${mod.version}</span>
-                    </div>
-                    <div class="mod-description">${mod.desc}</div>
-                    ${!mod.online ? '<div class="mod-status-error">Not supported yet on Minecraft 26.3!</div>' : ''}
-                </div>
-                <div class="mod-status-indicator">
-                    ${statusHTML}
-                </div>
-            `;
+            </div>
+        </div>
 
-            row.addEventListener('click', () => {
-                document.querySelectorAll('.mod-row').forEach(r => r.classList.remove('selected'));
-                if (selectedMod && selectedMod.id === mod.id) {
-                    selectedMod = null;
-                    btnDownload.classList.add('disabled');
-                } else {
-                    selectedMod = mod;
-                    row.classList.add('selected');
-                    if (mod.online) {
-                        btnDownload.classList.remove('disabled');
-                    } else {
-                        btnDownload.classList.add('disabled');
-                    }
-                }
-            });
-
-            serverList.appendChild(row);
-        });
-
-        // Function to extract direct raw jar file link from Modrinth Version API
-        async function fetchDirectJarUrl(slug) {
-            try {
-                const response = await fetch(`https://api.modrinth.com/v2/project/${slug}/version`);
-                if (!response.ok) return null;
-                const data = await response.json();
-                if (data && data.length > 0) {
-                    // Filter or default to first compiled game primary download file asset
-                    const files = data[0].files;
-                    if (files && files.length > 0) {
-                        const primaryFile = files.find(f => f.primary) || files[0];
-                        return primaryFile.url;
-                    }
-                }
-            } catch (err) {
-                console.error("API error for " + slug, err);
-            }
-            return null;
-        }
-
-        // Trigger safe programmatic instant file binary downloads
-        function triggerDownload(url, filename) {
-            const anchor = document.createElement('a');
-            anchor.href = url;
-            anchor.setAttribute('download', filename || '');
-            anchor.style.display = 'none';
-            document.body.appendChild(anchor);
-            anchor.click();
-            document.body.removeChild(anchor);
-        }
-
-        // Download specific selected mod directly 
-        btnDownload.addEventListener('click', async () => {
-            if (btnDownload.classList.contains('disabled') || !selectedMod || !selectedMod.online) return;
-            
-            const originalText = btnDownload.innerText;
-            btnDownload.innerText = "Fetching...";
-            btnDownload.classList.add('disabled');
-
-            const directUrl = await fetchDirectJarUrl(selectedMod.slug);
-            if (directUrl) {
-                triggerDownload(directUrl);
-            } else {
-                alert("Failed to capture direct file binary asset from Modrinth. Try again shortly!");
-            }
-
-            btnDownload.innerText = originalText;
-            btnDownload.classList.remove('disabled');
-        });
-
-        // Loop sequential automated chain to pull all online jars sequentially with a slight block-preventer delay
-        btnDownloadAll.addEventListener('click', async () => {
-            if (btnDownloadAll.classList.contains('disabled')) return;
-            
-            const originalText = btnDownloadAll.innerText;
-            btnDownloadAll.innerText = "Downloading...";
-            btnDownloadAll.classList.add('disabled');
-
-            const onlineMods = modsData.filter(m => m.online);
-            for (let i = 0; i < onlineMods.length; i++) {
-                const url = await fetchDirectJarUrl(onlineMods[i].slug);
-                if (url) {
-                    triggerDownload(url);
-                    // 600ms gap avoids browser thread choking or popping multiple file blocker warnings
-                    await new Promise(resolve => setTimeout(resolve, 600));
-                }
-            }
-
-            btnDownloadAll.innerText = originalText;
-            btnDownloadAll.classList.remove('disabled');
-        });
-    </script>
-</body>
-</html>
+        <!-- AppleSkin -->
