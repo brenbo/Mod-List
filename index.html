@@ -7,7 +7,7 @@
     <style>
         @font-face {
             font-family: 'Minecraftia';
-            src: url('https://cdn.jsdelivr.net/gh/South-Paw/typeface-minecraftia@master/Minecraftia.ttf') format('truetype');
+            src: url('https://cdn.jsdelivr.net/gh/IdreesInc/Monocraft@v2.4/Monocraft.ttf') format('truetype');
         }
 
         * {
@@ -16,450 +16,476 @@
             -webkit-user-select: none;
         }
 
-        body {
-            background-image: url('https://minecraft.wiki/images/Dirt_JE2_BE2.png?a50d2');
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: 'Minecraftia', monospace;
+            font-size: 14px;
+            color: #AAAAAA;
+            overflow: hidden;
+            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://minecraft.wiki/images/Dirt_JE2_BE2.png?84643');
             background-repeat: repeat;
             background-size: 64px 64px;
             image-rendering: pixelated;
-            color: #AAAAAA;
-            font-family: 'Minecraftia', Courier, monospace;
-            font-size: 14px;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            overflow: hidden;
-            text-shadow: 2px 2px 0px #222222;
         }
 
-        /* Overlay to give the dirt background a darker, authentic menu look */
-        body::before {
-            content: "";
+        /* Top Bar */
+        .top-bar {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.75);
-            z-index: -1;
-        }
-
-        /* Top Header Area */
-        .header {
-            height: 48px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 16px;
-            color: #FFFFFF;
-            border-bottom: 4px solid #111111;
-            background: rgba(0, 0, 0, 0.4);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 52px;
+            background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://minecraft.wiki/images/Dirt_JE2_BE2.png?84643');
+            background-repeat: repeat;
+            background-size: 64px 64px;
+            image-rendering: pixelated;
+            border-bottom: 4px solid #2d2d2d;
             box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             z-index: 10;
         }
 
-        /* Server List Mod Container */
-        .server-list {
-            flex: 1;
+        .title {
+            color: #FFFFFF;
+            font-size: 16px;
+            text-shadow: 2px 2px 0px #3F3F3F;
+        }
+
+        /* Container & Scrolling List */
+        .server-list-container {
+            position: absolute;
+            top: 52px;
+            bottom: 100px;
+            left: 0;
+            width: 100%;
             overflow-y: auto;
             padding: 12px 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            width: 100%;
-            max-width: 700px;
-            margin: 0 auto;
-            background: rgba(0, 0, 0, 0.3);
+            box-shadow: inset 0 8px 12px -6px rgba(0,0,0,0.8), inset 0 -8px 12px -6px rgba(0,0,0,0.8);
         }
 
-        /* Scrollbar styling matching classic styles */
-        .server-list::-webkit-scrollbar {
+        /* Custom Scrollbar to mimic Minecraft look */
+        .server-list-container::-webkit-scrollbar {
             width: 12px;
         }
-        .server-list::-webkit-scrollbar-track {
+        .server-list-container::-webkit-scrollbar-track {
             background: rgba(0, 0, 0, 0.5);
+            border-left: 2px solid #2d2d2d;
         }
-        .server-list::-webkit-scrollbar-thumb {
-            background: #8B8B8B;
-            border: 2px solid #373737;
-        }
-
-        /* Individual Mod Entry (Mimicking a Server Row) */
-        .mod-entry {
-            display: flex;
-            width: 100%;
-            padding: 6px 12px;
-            margin-bottom: 4px;
-            border: 2px solid transparent;
-            cursor: pointer;
-            position: relative;
-            align-items: center;
+        .server-list-container::-webkit-scrollbar-thumb {
+            background: #888888;
+            border: 2px solid #555555;
         }
 
-        .mod-entry:hover {
-            border: 2px solid #888888;
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .mod-entry.selected {
-            border: 2px solid #FFFFFF;
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        /* Mod Icon (Mimicking Server Icon) */
-        .mod-icon {
-            width: 64px;
+        /* Server Entry Layout */
+        .server-entry {
+            width: 90%;
+            max-width: 600px;
             height: 64px;
+            margin-bottom: 8px;
+            display: flex;
+            position: relative;
+            cursor: pointer;
+            border: 2px solid transparent;
+            padding: 2px;
+        }
+
+        .server-entry:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .server-entry.selected {
+            border: 2px solid #FFFFFF;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .mod-icon {
+            width: 56px;
+            height: 56px;
+            object-fit: contain;
             image-rendering: pixelated;
             margin-right: 12px;
-            border: 2px solid #555555;
-            background-color: #111111;
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .mod-icon img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
+            background-color: rgba(0,0,0,0.3);
+            border: 1px solid #333;
         }
 
-        /* Text Content Rows */
         .mod-details {
-            flex-grow: 1;
+            flex: 1;
             display: flex;
             flex-direction: column;
             justify-content: center;
             overflow: hidden;
             white-space: nowrap;
+            text-overflow: ellipsis;
         }
 
-        .mod-header-row {
+        .mod-name-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            width: 100%;
             margin-bottom: 2px;
         }
 
         .mod-name {
-            color: #FFFFFF;
-            font-weight: bold;
+            color: #FFFF55; /* Yellow (§e) */
             font-size: 14px;
-            text-overflow: ellipsis;
-            overflow: hidden;
+            text-shadow: 2px 2px 0px #3F3F15;
         }
 
         .mod-version {
-            color: #55FF55;
+            color: #55FF55; /* Green (§a) */
+            text-shadow: 2px 2px 0px #153F15;
             font-size: 12px;
+            margin-right: 36px;
         }
 
         .mod-description {
-            color: #AAAAAA;
-            font-size: 13px;
-            text-overflow: ellipsis;
-            overflow: hidden;
-        }
-
-        .mod-status-text {
-            color: #555555;
+            color: #AAAAAA; /* Gray (§7) */
             font-size: 12px;
-            text-overflow: ellipsis;
+            text-shadow: 2px 2px 0px #2A2A2A;
             overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        /* Status Ping / Indicator Icons */
-        .status-container {
-            display: flex;
-            align-items: center;
-            margin-left: 12px;
-            flex-shrink: 0;
+        .mod-status-error {
+            color: #FF5555; /* Red (§c) */
+            font-size: 12px;
+            text-shadow: 2px 2px 0px #3F1515;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        /* Simulated green connection bars */
-        .ping-bars {
+        /* Ping Meter & Indicators */
+        .connection-indicator {
+            position: absolute;
+            right: 4px;
+            top: 6px;
+            width: 24px;
+            height: 24px;
             display: flex;
             align-items: flex-end;
-            gap: 2px;
-            width: 20px;
-            height: 16px;
+            justify-content: space-between;
         }
+
         .ping-bar {
-            width: 2px;
-            background-color: #55FF55;
+            width: 3px;
+            background-color: #00AA00;
+            border: 1px solid #003300;
         }
-        .ping-bar:nth-child(1) { height: 20%; }
-        .ping-bar:nth-child(2) { height: 40%; }
-        .ping-bar:nth-child(3) { height: 60%; }
-        .ping-bar:nth-child(4) { height: 80%; }
-        .ping-bar:nth-child(5) { height: 100%; }
+        .ping-bar.b1 { height: 6px; }
+        .ping-bar.b2 { height: 10px; }
+        .ping-bar.b3 { height: 14px; }
+        .ping-bar.b4 { height: 18px; }
+        .ping-bar.b5 { height: 22px; }
 
-        /* Offline indicator X cross */
-        .ping-offline {
+        .cross-indicator {
+            position: absolute;
+            right: 8px;
+            top: 6px;
             color: #FF5555;
+            font-size: 18px;
             font-weight: bold;
-            font-size: 16px;
-            line-height: 16px;
-            margin-right: 4px;
+            text-shadow: 2px 2px 0px #3F1515;
         }
 
-        /* Bottom Controls Bar */
-        .controls-panel {
-            background: rgba(0, 0, 0, 0.4);
-            border-top: 4px solid #111111;
-            padding: 12px 0;
+        /* Bottom Controls Area */
+        .bottom-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://minecraft.wiki/images/Dirt_JE2_BE2.png?84643');
+            background-repeat: repeat;
+            background-size: 64px 64px;
+            image-rendering: pixelated;
+            border-top: 4px solid #2d2d2d;
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             gap: 8px;
-            width: 100%;
             z-index: 10;
         }
 
         .button-row {
             display: flex;
-            justify-content: center;
             gap: 12px;
-            width: 100%;
-            max-width: 620px;
-            padding: 0 10px;
+            width: 90%;
+            max-width: 600px;
         }
 
-        /* Minecraft Classic Style Button Layout */
+        /* Authentic MC Button Styling */
         .mc-btn {
             flex: 1;
-            height: 40px;
-            background: #4a4a4a;
+            height: 36px;
+            background-color: #666666;
             border: 2px solid #000000;
-            box-shadow: inset -2px -2px 0px #212121, inset 2px 2px 0px #8f8f8f;
+            box-shadow: inset -2px -2px 0px #333333, inset 2px 2px 0px #999999;
             color: #E0E0E0;
-            font-family: 'Minecraftia', Courier, monospace;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
+            font-family: 'Minecraftia', monospace;
+            font-size: 13px;
             text-align: center;
-            text-decoration: none;
+            line-height: 32px;
+            cursor: pointer;
             text-shadow: 2px 2px 0px #222222;
+            text-decoration: none;
         }
 
         .mc-btn:hover:not(.disabled) {
-            background: #6b6b6b;
-            color: #FFFF55;
-            box-shadow: inset -2px -2px 0px #3a3a3a, inset 2px 2px 0px #aaaaaa;
+            background-color: #7a7a7a;
+            color: #FFFFA0;
+            box-shadow: inset -2px -2px 0px #444444, inset 2px 2px 0px #b5b5b5;
+            border-color: #000000;
         }
 
         .mc-btn:active:not(.disabled) {
-            box-shadow: inset 2px 2px 0px #212121, inset -2px -2px 0px #8f8f8f;
-            padding-top: 2px;
-            padding-left: 2px;
+            background-color: #4a4a4a;
+            box-shadow: inset 2px 2px 0px #222222, inset -2px -2px 0px #666666;
         }
 
         .mc-btn.disabled {
-            background: #2a2a2a;
-            color: #555555;
+            background-color: #3c3c3c;
             box-shadow: none;
+            color: #7a7a7a;
+            border-color: #555555;
             cursor: not-allowed;
-            text-shadow: none;
+            text-shadow: 2px 2px 0px #111111;
         }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        Play Multiplayer
+    <div class="top-bar">
+        <div class="title">Play Multiplayer</div>
     </div>
 
-    <div class="server-list" id="serverList">
+    <div class="server-list-container" id="serverContainer">
         <!-- Simple Voice Chat -->
-        <div class="mod-entry" onclick="selectMod(this, 'https://api.modrinth.com/v2/project/9eGKb6v1/version/AFrG9WvA/download/voicechat-fabric-1.21.1-2.16.3.jar', true, '')">
-            <div class="mod-icon">
-                <img src="https://cdn-raw.modrinth.com/str/9eGKb6v1/icon.png" alt="Icon">
-            </div>
+        <div class="server-entry" onclick="selectMod(this, 'voicechat', 'https://api.modrinth.com/v2/project/9eGKb6g1/version')" data-status="online">
+            <img class="mod-icon" src="https://cdn.modrinth.com/data/9eGKb6g1/0f047dfb28e830e2f3d64c1b920bf806f71d53e3.png" alt="Icon">
             <div class="mod-details">
-                <div class="mod-header-row">
+                <div class="mod-name-row">
                     <span class="mod-name">Simple Voice Chat</span>
                     <span class="mod-version">v2.16.3</span>
                 </div>
-                <div class="mod-description">Proximity voice chat with a variety of addons. Required!</div>
-                <div class="mod-status-text">Fabric 1.21.1 / 1.21.2+ compatible</div>
+                <div class="mod-description">Proximity voice chat with a variety of addons. Required for Proximity Audio!</div>
             </div>
-            <div class="status-container">
-                <div class="ping-bars">
-                    <div class="ping-bar"></div><div class="ping-bar"></div><div class="ping-bar"></div><div class="ping-bar"></div><div class="ping-bar"></div>
-                </div>
+            <div class="connection-indicator">
+                <div class="ping-bar b1"></div><div class="ping-bar b2"></div><div class="ping-bar b3"></div><div class="ping-bar b4"></div><div class="ping-bar b5"></div>
             </div>
         </div>
 
-        <!-- JEI -->
-        <div class="mod-entry" onclick="selectMod(this, 'https://api.modrinth.com/v2/project/u6wZa6IE/version/1gZ5uFCH/download/jei-1.21.1-fabric-19.21.0.246.jar', true, '')">
-            <div class="mod-icon">
-                <img src="https://cdn-raw.modrinth.com/str/u6wZa6IE/icon.png" alt="Icon">
-            </div>
+        <!-- Just Enough Items (JEI) -->
+        <div class="server-entry" onclick="selectMod(this, 'jei', 'https://api.modrinth.com/v2/project/u6w9GZ6B/version')" data-status="online">
+            <img class="mod-icon" src="https://cdn.modrinth.com/data/u6w9GZ6B/700db5ebcb819dd336ecbf648f8a6147493a3036.png" alt="Icon">
             <div class="mod-details">
-                <div class="mod-header-row">
+                <div class="mod-name-row">
                     <span class="mod-name">Just Enough Items (JEI)</span>
-                    <span class="mod-version">v19.21.0</span>
+                    <span class="mod-version">v19.2.0</span>
                 </div>
                 <div class="mod-description">Item and recipe viewing mod built from the ground up.</div>
-                <div class="mod-status-text">Recommended Utility Mod.</div>
             </div>
-            <div class="status-container">
-                <div class="ping-bars">
-                    <div class="ping-bar"></div><div class="ping-bar"></div><div class="ping-bar"></div><div class="ping-bar"></div><div class="ping-bar"></div>
-                </div>
+            <div class="connection-indicator">
+                <div class="ping-bar b1"></div><div class="ping-bar b2"></div><div class="ping-bar b3"></div><div class="ping-bar b4"></div><div class="ping-bar b5"></div>
             </div>
         </div>
 
         <!-- AppleSkin -->
-        <div class="mod-entry" onclick="selectMod(this, 'https://api.modrinth.com/v2/project/606HfOSY/version/e8H67rZt/download/appleskin-fabric-mc1.21-3.0.5.jar', true, '')">
-            <div class="mod-icon">
-                <img src="https://cdn-raw.modrinth.com/str/606HfOSY/icon.png" alt="Icon">
-            </div>
+        <div class="server-entry" onclick="selectMod(this, 'appleskin', 'https://api.modrinth.com/v2/project/6uU91XN0/version')" data-status="online">
+            <img class="mod-icon" src="https://cdn.modrinth.com/data/6uU91XN0/3ff034079da768f5c9e2b1b369527ecb87c71610.png" alt="Icon">
             <div class="mod-details">
-                <div class="mod-header-row">
+                <div class="mod-name-row">
                     <span class="mod-name">AppleSkin</span>
-                    <span class="mod-version">v3.0.5</span>
+                    <span class="mod-version">v3.0.3</span>
                 </div>
                 <div class="mod-description">Food/hunger-related HUD improvements (Saturation & Hunger).</div>
-                <div class="mod-status-text">Recommended Utility Mod.</div>
             </div>
-            <div class="status-container">
-                <div class="ping-bars">
-                    <div class="ping-bar"></div><div class="ping-bar"></div><div class="ping-bar"></div><div class="ping-bar"></div><div class="ping-bar"></div>
-                </div>
+            <div class="connection-indicator">
+                <div class="ping-bar b1"></div><div class="ping-bar b2"></div><div class="ping-bar b3"></div><div class="ping-bar b4"></div><div class="ping-bar b5"></div>
             </div>
         </div>
 
         <!-- Jade -->
-        <div class="mod-entry" onclick="selectMod(this, 'https://api.modrinth.com/v2/project/0u896Xv1/version/B7M8f2gN/download/Jade-1.21.1-fabric-15.1.5.jar', true, '')">
-            <div class="mod-icon">
-                <img src="https://cdn-raw.modrinth.com/str/0u896Xv1/icon.png" alt="Icon">
-            </div>
+        <div class="server-entry" onclick="selectMod(this, 'jade', 'https://api.modrinth.com/v2/project/5wB0w2S0/version')" data-status="online">
+            <img class="mod-icon" src="https://cdn.modrinth.com/data/5wB0w2S0/b47249b6574fbc11e2f3d9fe2fa9da6df9939fe8.png" alt="Icon">
             <div class="mod-details">
-                <div class="mod-header-row">
+                <div class="mod-name-row">
                     <span class="mod-name">Jade</span>
                     <span class="mod-version">v15.1.5</span>
                 </div>
                 <div class="mod-description">Shows information about what block or mob you are looking at.</div>
-                <div class="mod-status-text">Recommended Utility Mod.</div>
             </div>
-            <div class="status-container">
-                <div class="ping-bars">
-                    <div class="ping-bar"></div><div class="ping-bar"></div><div class="ping-bar"></div><div class="ping-bar"></div><div class="ping-bar"></div>
-                </div>
+            <div class="connection-indicator">
+                <div class="ping-bar b1"></div><div class="ping-bar b2"></div><div class="ping-bar b3"></div><div class="ping-bar b4"></div><div class="ping-bar b5"></div>
             </div>
         </div>
 
         <!-- Complementary Unbound -->
-        <div class="mod-entry" onclick="selectMod(this, 'https://api.modrinth.com/v2/project/8vU699vG/version/9mF8W2zB/download/ComplementaryUnbound_r5.3.zip', true, '')">
-            <div class="mod-icon">
-                <img src="https://cdn-raw.modrinth.com/str/8vU699vG/icon.png" alt="Icon">
-            </div>
+        <div class="server-entry" onclick="selectMod(this, 'complementary', 'https://api.modrinth.com/v2/project/SkAsm9ba/version')" data-status="online">
+            <img class="mod-icon" src="https://cdn.modrinth.com/data/SkAsm9ba/6e927ef5c940ee36b2f6ef53d865582f3fc0b299.png" alt="Icon">
             <div class="mod-details">
-                <div class="mod-header-row">
+                <div class="mod-name-row">
                     <span class="mod-name">Complementary Unbound</span>
                     <span class="mod-version">v5.3</span>
                 </div>
-                <div class="mod-description">Transforming visuals with exceptional quality, detail, and lighting.</div>
-                <div class="mod-status-text">Optional Visual Upgrade (.zip).</div>
+                <div class="mod-description">Transforming the visuals of Minecraft with exceptional quality, detail, and lighting.</div>
             </div>
-            <div class="status-container">
-                <div class="ping-bars">
-                    <div class="ping-bar"></div><div class="ping-bar"></div><div class="ping-bar"></div><div class="ping-bar"></div><div class="ping-bar"></div>
-                </div>
+            <div class="connection-indicator">
+                <div class="ping-bar b1"></div><div class="ping-bar b2"></div><div class="ping-bar b3"></div><div class="ping-bar b4"></div><div class="ping-bar b5"></div>
             </div>
         </div>
 
-        <!-- Iris & Sodium Engine -->
-        <div class="mod-entry" onclick="selectMod(this, '', false, 'Not supported yet on Minecraft 26.3!')">
-            <div class="mod-icon">
-                <img src="https://cdn-raw.modrinth.com/str/AWe6v1G5/icon.png" alt="Icon">
-            </div>
+        <!-- Iris & Sodium Engine (Offline Entry) -->
+        <div class="server-entry" onclick="selectMod(this, 'iris', '')" data-status="offline">
+            <img class="mod-icon" src="https://cdn.modrinth.com/data/YL577FCG/icon.png" alt="Icon">
             <div class="mod-details">
-                <div class="mod-header-row">
-                    <span class="mod-name" style="color: #AAAAAA;">Iris & Sodium Engine</span>
-                    <span class="mod-version" style="color: #FF5555;">Offline</span>
+                <div class="mod-name-row">
+                    <span class="mod-name" style="color: #AAAAAA; text-shadow: 2px 2px 0px #2A2A2A;">Iris & Sodium Engine</span>
+                    <span class="mod-version" style="color: #FF5555; text-shadow: 2px 2px 0px #3F1515;">Offline</span>
                 </div>
-                <div class="mod-description" style="color: #FF5555;">Not supported yet on Minecraft 26.3!</div>
-                <div class="mod-status-text">Modern shader pack loader and optimization engine.</div>
+                <div class="mod-status-error">Not supported yet on Minecraft 26.3!</div>
             </div>
-            <div class="status-container">
-                <span class="ping-offline">✕</span>
-            </div>
+            <div class="cross-indicator">✕</div>
         </div>
     </div>
 
-    <div class="controls-panel">
+    <div class="bottom-bar">
         <div class="button-row">
             <div class="mc-btn disabled" id="downloadBtn" onclick="triggerDownload()">Download Mod</div>
-            <div class="mc-btn" onclick="downloadAllOnline()">Download All Mods</div>
+            <div class="mc-btn" id="downloadAllBtn" onclick="triggerDownloadAll()">Download All Mods</div>
         </div>
         <div class="button-row">
             <div class="mc-btn" onclick="location.reload()">Refresh List</div>
-            <div class="mc-btn" onclick="window.close() || alert('Closed server connection!')">Cancel</div>
+            <div class="mc-btn" onclick="alert('Lobby closed!')">Cancel</div>
         </div>
     </div>
 
     <script>
         let selectedUrl = "";
-        let isOnline = false;
+        let selectedStatus = "";
+        let activeElement = null;
 
-        // Valid direct modrinth file lists for online downloads
-        const allOnlineUrls = [
-            'https://api.modrinth.com/v2/project/9eGKb6v1/version/AFrG9WvA/download/voicechat-fabric-1.21.1-2.16.3.jar',
-            'https://api.modrinth.com/v2/project/u6wZa6IE/version/1gZ5uFCH/download/jei-1.21.1-fabric-19.21.0.246.jar',
-            'https://api.modrinth.com/v2/project/606HfOSY/version/e8H67rZt/download/appleskin-fabric-mc1.21-3.0.5.jar',
-            'https://api.modrinth.com/v2/project/0u896Xv1/version/B7M8f2gN/download/Jade-1.21.1-fabric-15.1.5.jar',
-            'https://api.modrinth.com/v2/project/8vU699vG/version/9mF8W2zB/download/ComplementaryUnbound_r5.3.zip'
-        ];
+        // Configuration mapping target project slugs / version rules if fallback needed
+        const fallbackUrls = {
+            'voicechat': 'https://modrinth.com/mod/simple-voice-chat',
+            'jei': 'https://modrinth.com/mod/jei',
+            'appleskin': 'https://modrinth.com/mod/appleskin',
+            'jade': 'https://modrinth.com/mod/jade',
+            'complementary': 'https://modrinth.com/shader/complementary-unbound'
+        };
 
-        function selectMod(element, url, onlineStatus, errorMsg) {
-            // Remove selection styling from previous elements
-            const entries = document.getElementsByClassName('mod-entry');
-            for (let i = 0; i < entries.length; i++) {
-                entries[i].classList.remove('selected');
-            }
+        function selectMod(element, id, endpointUrl) {
+            // Remove previous selections
+            const entries = document.querySelectorAll('.server-entry');
+            entries.forEach(e => e.classList.remove('selected'));
 
-            // Apply selected style row
+            activeElement = element;
             element.classList.add('selected');
-            
-            selectedUrl = url;
-            isOnline = onlineStatus;
+            selectedStatus = element.getAttribute('data-status');
 
-            const dlBtn = document.getElementById('downloadBtn');
-            if (isOnline) {
-                dlBtn.classList.remove('disabled');
-                dlBtn.innerText = "Download Mod";
+            const downloadBtn = document.getElementById('downloadBtn');
+
+            if (selectedStatus === 'offline') {
+                selectedUrl = "";
+                downloadBtn.classList.add('disabled');
             } else {
-                dlBtn.classList.add('disabled');
-                dlBtn.innerText = "Unsupported";
-                if(errorMsg) {
-                    alert(errorMsg);
+                // We use dynamic client-side redirection or parsing via project api endpoints
+                selectedUrl = endpointUrl;
+                downloadBtn.classList.remove('disabled');
+            }
+        }
+
+        async function triggerDownload() {
+            if (!selectedUrl || selectedStatus === 'offline') return;
+            
+            const downloadBtn = document.getElementById('downloadBtn');
+            const originalText = downloadBtn.innerText;
+            downloadBtn.innerText = "Fetching...";
+            downloadBtn.classList.add('disabled');
+
+            try {
+                // To safely bypass route lookup failures, get the actual direct primary loader file reference
+                const response = await fetch(selectedUrl);
+                if (!response.ok) throw new Error('API route issue');
+                
+                const data = await response.json();
+                // Extract primary jar asset path out of array structure
+                if (data && data.length > 0 && data[0].files && data[0].files.length > 0) {
+                    const fileUrl = data[0].files[0].url;
+                    window.location.href = fileUrl;
+                } else {
+                    throw new Error('Structure mismatch');
+                }
+            } catch (err) {
+                // Route fallback strategy: trigger direct fallback download pipeline or redirect to page layout smoothly
+                console.error("API Error, utilizing project route mapping fallback...", err);
+                // Find matching entry id key from selected item context
+                if (activeElement) {
+                    // Extract project name or mapping match
+                    const name = activeElement.querySelector('.mod-name').innerText.toLowerCase();
+                    let matchedKey = '';
+                    if (name.includes('voice')) matchedKey = 'voicechat';
+                    else if (name.includes('items') || name.includes('jei')) matchedKey = 'jei';
+                    else if (name.includes('apple')) matchedKey = 'appleskin';
+                    else if (name.includes('jade')) matchedKey = 'jade';
+                    else if (name.includes('complementary')) matchedKey = 'complementary';
+
+                    if (matchedKey && fallbackUrls[matchedKey]) {
+                        window.open(fallbackUrls[matchedKey], '_blank');
+                    }
+                }
+            } finally {
+                downloadBtn.innerText = originalText;
+                downloadBtn.classList.remove('disabled');
+            }
+        }
+
+        async function triggerDownloadAll() {
+            const onlineEndpoints = [
+                'https://api.modrinth.com/v2/project/9eGKb6g1/version', // Voicechat
+                'https://api.modrinth.com/v2/project/u6w9GZ6B/version', // JEI
+                'https://api.modrinth.com/v2/project/6uU91XN0/version', // AppleSkin
+                'https://api.modrinth.com/v2/project/5wB0w2S0/version', // Jade
+                'https://api.modrinth.com/v2/project/SkAsm9ba/version'  // Complementary
+            ];
+
+            const downloadAllBtn = document.getElementById('downloadAllBtn');
+            downloadAllBtn.innerText = "Downloading All...";
+            downloadAllBtn.classList.add('disabled');
+
+            for (let i = 0; i < onlineEndpoints.length; i++) {
+                try {
+                    const response = await fetch(onlineEndpoints[i]);
+                    if (response.ok) {
+                        const data = await response.json();
+                        if (data && data.length > 0 && data[0].files && data[0].files.length > 0) {
+                            const fileUrl = data[0].files[0].url;
+                            // Create hidden dynamic anchor pipeline element to cascade active queue download signals safely
+                            let dlAnchor = document.createElement('a');
+                            dlAnchor.href = fileUrl;
+                            dlAnchor.style.display = 'none';
+                            document.body.appendChild(dlAnchor);
+                            dlAnchor.click();
+                            document.body.removeChild(dlAnchor);
+                            // Slight delay loop execution pacing sequence to ensure prompt download pipelines don't overlap browser rules
+                            await new Promise(r => setTimeout(r, 600));
+                        }
+                    }
+                } catch (e) {
+                    console.error("Queue download failure on item sequence index " + i, e);
                 }
             }
-        }
 
-        function triggerDownload() {
-            if (isOnline && selectedUrl) {
-                window.location.href = selectedUrl;
-            }
-        }
-
-        function downloadAllOnline() {
-            alert("Starting download queue for all supported mods...");
-            allOnlineUrls.forEach((url, index) => {
-                setTimeout(() => {
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.style.display = 'none';
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                }, index * 800); // Staggered to prevent browser blocking multiple popups
-            });
+            downloadAllBtn.innerText = "Download All Mods";
+            downloadAllBtn.classList.add('disabled');
         }
     </script>
 </body>
