@@ -5,281 +5,282 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minecraft Server Mod Downloader</title>
     <style>
-        /* Minecraft Font Face Simulation */
         @import url('https://cdnfonts.com');
+
+        :root {
+            --mc-gray: #AAAAAA;
+            --mc-dark-gray: #555555;
+            --mc-green: #55FF55;
+            --mc-red: #FF5555;
+            --mc-yellow: #FFFF55;
+            --mc-shadow: #3F3F3F;
+        }
 
         * {
             box-sizing: border-box;
             user-select: none;
+            -webkit-user-drag: none;
         }
 
         body {
-            background-color: #2c2c2c;
-            /* Authentic Base64 Embedded Tileable 2D Dirt Background */
-            background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAEDElEQVR42u2b0XIDIQhE5///6S7ptXN2wlhgS7YznS869yAsSNo++/v7e7f72m+8A/wGeAco7wB/Zf/g4OBe6urq6npd6r/scR9938P13+9yv7u7e6/XpY6Nj8bvvf6VffR9K9ePjI+67uN67ff7uK5z6L6VfdTxUed93df6mOfRfa3MbyXgOfwO8BtgvAP8vAL8vAL8vAK+vAK+XgHvV8D7XfD1Cni9Al6vgOcV8P074P0VcH8v3F8BbyvgewW8rgDXPdyvPe7jefR9K9ePjI+67uN67ff7uK5z6L6VfdTxUed93df6mOfRfa3MbyXgOfwO8BtgvAP8vAL8vAL8vAK+vAK+XgHvV8D7XfD1Cni9Al6vgOcV8P074P0VcH8v3F8BbyvgewW8rgDXPdyvPe7jefR9K9ePjI+67uN67ff7uK5z6L6VfdTxUed93df6mOfRfa3MbyXgOfwO8BtgvAP8vAL8vAL8vAK+vAK+XgHvV8D7XfD1Cni9Al6vgOcV8P074P0VcH8v3F8BbyvgewW8rgDXPdyvPe7jefR9K9ePjI+67uN67ff7uK5z6L6VfdTxUed93df6mOfRfa3MbyXgOfwO8BtgvAP8vAL8vAL8vAK+vAK+XgHvV8D7XfD1Cni9Al6vgOcV8P074P0VcH8v3F8BbyvgewW8rgDXPdyvPe7jefR9K9ePjI+67uN67ff7uK5z6L6VfdTxUed93df6mOfRfa3MbyXgOfwO8BtgvAP8vAL8vAL8vAK+vAK+XgHvV8D7XfD1Cni9Al6vgOcV8P074P0VcH8v3F8BbyvgewW8rgDXPdyvPe7jefR9K9ePjI+67uN67ff7uK5z6L6VfdTxUed93df6mOfRfa3MbyXgOfwO8BtgvAP8vAL8vAL8vAK+vAK+XgHvV8D7XfD1Cni9Al6vgOcV8P074P0VcH8v3F8BbyvgewW8rgDXPdyvPe7jefR9K9ePjI+67uN67ff7uK5z6L6VfdTxUed93df6mOfRfa3MbyXgOfwO/wD7g3T86XUu4wAAAAASUVORK5CYII=");
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                        url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAU1QTFRF////qqqqp6enpKSko6OjoKCgm5ubmJiYlpaWlZWVlJSUkJCQjo6Oi4uLiYmJh4eHhISEg4ODgICAf39/fn5+fHx8e3t7enp6eXl5d3d3dnZ2dHR0cnJycXFxb29vbnZ2bW1tbGxsampqZ2dnZmZmZGRkY2NjYWFhYGBgX19fXV1dXFxcW1tbWlpaWFhYV1dXbWxsVFRUU1NTUFBQTExMS0tLSkpKSEhIR0dHRkZGRERERERDQ0NDQkJCQUFBQD8/Pz4+PT09PDw8Ozs7Ojo6OTk5ODg4Nzc3NjY2Nf8AOTk1NDQ0MzMzMjIyMTExMDAwLy8vLi4uLS0tLCwsKioqKSkpKCgoJycnJiYmJSV6JCQkIyMjISEhICAgHx8fHh4eHR0dHBwcGxsbGhoaGRkZGBgYFxcXFhYWFRUVEhISAwMD////7N759gAAAAF0Uk5TAEDm2GYAAAABYktHRMD3p6fGAAAALHRFWHRDcmVhdGlvbiBUaW1lAFR1ZSA2IE9jdCAyMDI2IDE5OjMwOjAwIC0wNjAwAtI9zQAAALxJREFUeNpt0VESwiAMBVAasIKK979VbWhpU8bOzLwffpIAnmX6fF0u1y6O83Y8vB8W78vjKqHruPZxrONmI45XFbeVshqZ2YisZGaK7GxGlrIxXbTZZ7rscU7ePee8rEZZbUYpPWeZ2Sg96XvO0mU9Wp/mN6X0ZfWZ0rIerfTNSlsb8z80szG7XzO7YGbXzXvO0m7N7m4D2K1SdqvsVp6zlH3ZffNW9mXfFmXfVmbftmzftqPst8/xBrE9BUM9D97pAAAAAElFTkSuQmCC') repeat;
             background-size: 64px 64px;
             font-family: 'Minecraftia', sans-serif;
-            color: #AAAAAA;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            overflow: hidden;
-        }
-
-        /* Header UI Overlay Overlay */
-        .header {
-            background: rgba(0, 0, 0, 0.8);
-            border-bottom: 4px solid #3c3c3c;
-            text-align: center;
-            padding: 20px;
-            color: #FFFFFF;
-            font-size: 18px;
-            text-shadow: 2px 2px #000000;
-        }
-
-        /* Footer UI Overlay Overlay */
-        .footer {
-            background: rgba(0, 0, 0, 0.8);
-            border-top: 4px solid #3c3c3c;
-            padding: 15px;
+            color: white;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
+            min-height: 100vh;
         }
 
-        /* Mod List Scroll Window Container Grid */
-        .server-list-container {
-            flex: 1;
-            overflow-y: auto;
-            max-width: 800px;
+        h1 {
+            font-size: 24px;
+            text-align: center;
+            text-shadow: 3px 3px 0px var(--mc-shadow);
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+        }
+
+        .server-container {
             width: 100%;
-            margin: 0 auto;
-            padding: 10px 20px;
+            max-width: 700px;
+            background-color: rgba(0, 0, 0, 0.4);
+            border: 4px solid var(--mc-dark-gray);
+            padding: 4px;
+            margin-bottom: 20px;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
         }
 
-        .server-list-container::-webkit-scrollbar {
-            width: 12px;
-        }
-        .server-list-container::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.5);
-        }
-        .server-list-container::-webkit-scrollbar-thumb {
-            background: #8B8B8B;
-            border: 2px solid #3C3C3C;
-        }
-
-        /* Mod Selection Rows Container */
         .mod-row {
             display: flex;
             align-items: center;
-            padding: 8px;
-            margin-bottom: 8px;
+            padding: 12px;
             border: 2px solid transparent;
-            background: rgba(0, 0, 0, 0.4);
             cursor: pointer;
             position: relative;
+            background-color: rgba(0, 0, 0, 0.2);
+            margin-bottom: 4px;
+        }
+
+        .mod-row:last-child {
+            margin-bottom: 0;
         }
 
         .mod-row:hover {
-            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid #808080;
+            background-color: rgba(255, 255, 255, 0.05);
         }
 
-        .mod-row.selected {
-            border: 2px solid #FFFFFF;
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        /* Graphic Image Asset Box Frames */
         .mod-icon {
             width: 48px;
             height: 48px;
             image-rendering: pixelated;
-            margin-right: 15px;
-            border: 2px solid #3c3c3c;
-            background: #111111;
+            margin-right: 16px;
             flex-shrink: 0;
-        }
-        .mod-icon img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* Text Data Layout Configurations */
-        .mod-details {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .mod-title {
-            color: #FFFF55;
-            font-size: 14px;
-            text-shadow: 2px 2px #000000;
-            margin-bottom: 2px;
-        }
-
-        .mod-desc {
-            color: #AAAAAA;
-            font-size: 11px;
-            text-shadow: 1px 1px #000000;
-            line-height: 1.4;
-        }
-
-        /* Signal Pings Connection Blocks */
-        .status-container {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            justify-content: center;
-            margin-left: 15px;
-            min-width: 80px;
-        }
-
-        .version-tag {
-            color: #55FF55;
-            font-size: 11px;
-            text-shadow: 1px 1px #000000;
-            margin-bottom: 4px;
-        }
-
-        .signal-bars {
-            display: flex;
-            align-items: flex-end;
-            gap: 2px;
-            width: 18px;
-            height: 14px;
-        }
-        .bar {
-            width: 2px;
-            background-color: #55FF55;
-            box-shadow: 1px 1px #000000;
-        }
-        .bar-1 { height: 20%; }
-        .bar-2 { height: 40%; }
-        .bar-3 { height: 60%; }
-        .bar-4 { height: 80%; }
-        .bar-5 { height: 100%; }
-
-        /* Action Selection Menu Control Buttons */
-        .button-row {
-            display: flex;
-            gap: 10px;
-            width: 100%;
-            max-width: 600px;
-            justify-content: center;
-        }
-
-        .mc-btn {
-            flex: 1;
-            height: 40px;
-            background: #5c5c5c;
-            border: 2px solid #000000;
-            box-shadow: inset -2px -2px #3a3a3a, inset 2px 2px #aeaeae;
-            color: #E0E0E0;
-            font-family: 'Minecraftia', sans-serif;
-            font-size: 12px;
-            text-shadow: 2px 2px #000000;
-            cursor: pointer;
+            background-color: rgba(0,0,0,0.3);
+            border: 2px solid #333;
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
         }
 
-        .mc-btn:hover:not(.disabled) {
-            background: #6c8c5c;
-            box-shadow: inset -2px -2px #4c6c3c, inset 2px 2px #8cbc7c;
-            color: #FFFFFF;
+        .mod-icon svg {
+            width: 32px;
+            height: 32px;
+            fill: #fff;
         }
 
-        .mc-btn:active:not(.disabled) {
-            box-shadow: inset 2px 2px #3a3a3a, inset -2px -2px #aeaeae;
-            padding-top: 2px;
+        .mod-details {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
         }
 
-        .mc-btn.disabled {
-            background: #4a4a4a;
-            box-shadow: none;
-            color: #7a7a7a;
+        .mod-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        .mod-name {
+            font-size: 16px;
+            text-shadow: 2px 2px 0px var(--mc-shadow);
+        }
+
+        .mod-version {
+            color: var(--mc-yellow);
+            font-size: 12px;
+            text-shadow: 1px 1px 0px var(--mc-shadow);
+        }
+
+        .mod-motd {
+            color: var(--mc-gray);
+            font-size: 12px;
+            text-shadow: 1px 1px 0px var(--mc-shadow);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 450px;
+        }
+
+        .status-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-left: 12px;
+        }
+
+        .ping-bars {
+            display: flex;
+            align-items: flex-end;
+            gap: 2px;
+            width: 20px;
+            height: 16px;
+        }
+
+        .ping-bar {
+            width: 2px;
+            background-color: var(--mc-dark-gray);
+        }
+        .ping-bar:nth-child(1) { height: 20%; }
+        .ping-bar:nth-child(2) { height: 40%; }
+        .ping-bar:nth-child(3) { height: 60%; }
+        .ping-bar:nth-child(4) { height: 80%; }
+        .ping-bar:nth-child(5) { height: 100%; }
+
+        .online .ping-bar {
+            background-color: var(--mc-green);
+        }
+        
+        .offline .ping-bar {
+            background-color: var(--mc-red);
+            height: 100% !important;
+            width: 2px;
+        }
+        .offline .ping-bar:not(:nth-child(3)) {
+            background-color: transparent;
+        }
+
+        .btn-download {
+            background-color: rgba(0,0,0,0.4);
+            border: 2px solid var(--mc-green);
+            color: var(--mc-green);
+            font-family: 'Minecraftia', sans-serif;
+            font-size: 10px;
+            padding: 4px 8px;
+            cursor: pointer;
+            text-shadow: 1px 1px 0px #002200;
+        }
+        .btn-download:hover {
+            background-color: var(--mc-green);
+            color: black;
             text-shadow: none;
-            cursor: not-allowed;
+        }
+
+        .action-bar {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+            max-width: 400px;
+            margin-top: 10px;
+        }
+
+        .mc-btn {
+            position: relative;
+            width: 100%;
+            height: 40px;
+            background: #4a4a4a border-box;
+            border: 2px solid #000;
+            box-shadow: inset -2px -2px 0px #212121, inset 2px 2px 0px #8a8a8a;
+            color: #e0e0e0;
+            font-family: 'Minecraftia', sans-serif;
+            font-size: 14px;
+            text-align: center;
+            line-height: 36px;
+            cursor: pointer;
+            text-shadow: 2px 2px 0px #212121;
+        }
+
+        .mc-btn:hover {
+            background: #6b6b6b;
+            color: #fffb7d;
+            box-shadow: inset -2px -2px 0px #313131, inset 2px 2px 0px #a3a3a3;
+        }
+
+        .mc-btn:active {
+            box-shadow: inset 2px 2px 0px #212121, inset -2px -2px 0px #8a8a8a;
+            line-height: 38px;
         }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        Play Multiplayer
+    <h1>Server Mod Downloader</h1>
+
+    <div class="server-container">
+        <!-- Iris & Sodium Engine -->
+        <div class="mod-row online" onclick="downloadMod('iris-sodium-pack.exe')">
+            <div class="mod-icon">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6M12,8A4,4 0 0,1 16,12A4,4 0 0,1 12,16A4,4 0 0,1 8,12A4,4 0 0,1 12,8Z"/>
+                </svg>
+            </div>
+            <div class="mod-details">
+                <div class="mod-header">
+                    <span class="mod-name">Iris &amp; Sodium Engine</span>
+                    <span class="mod-version">v26.3</span>
+                </div>
+                <div class="mod-motd">Shaders and performance optimizations initialized. Ready to download.</div>
+            </div>
+            <div class="status-container">
+                <button class="btn-download">.EXE</button>
+                <div class="ping-bars">
+                    <div class="ping-bar"></div>
+                    <div class="ping-bar"></div>
+                    <div class="ping-bar"></div>
+                    <div class="ping-bar"></div>
+                    <div class="ping-bar"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Voice Chat Mod -->
+        <div class="mod-row online" onclick="downloadMod('voice-chat-mod.jar')">
+            <div class="mod-icon">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12,2A3,3 0 0,1 15,5V11A3,3 0 0,1 12,14A3,3 0 0,1 9,11V5A3,3 0 0,1 12,2M19,11C19,14.53 16.39,17.44 13,17.93V21H11V17.93C7.61,17.44 5,14.53 5,11H7A5,5 0 0,0 12,16A5,5 0 0,0 17,11H19Z"/>
+                </svg>
+            </div>
+            <div class="mod-details">
+                <div class="mod-header">
+                    <span class="mod-name">Simple Voice Chat</span>
+                    <span class="mod-version">v2.5.20</span>
+                </div>
+                <div class="mod-motd">Proximity audio drivers active. Audio sync stable.</div>
+            </div>
+            <div class="status-container">
+                <button class="btn-download">.JAR</button>
+                <div class="ping-bars">
+                    <div class="ping-bar"></div>
+                    <div class="ping-bar"></div>
+                    <div class="ping-bar"></div>
+                    <div class="ping-bar"></div>
+                    <div class="ping-bar"></div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="server-list-container" id="serverList">
-        <!-- Simple Voice Chat -->
-        <div class="mod-row" data-slug="simple-voice-chat" onclick="selectMod(this, false, '')">
-            <div class="mod-icon">
-                <img src="https://modrinth.com" alt="Voice Chat">
-            </div>
-            <div class="mod-details">
-                <div class="mod-title">Simple Voice Chat</div>
-                <div class="mod-desc">Proximity voice chat with a variety of addons. Required for server connection!</div>
-            </div>
-            <div class="status-container">
-                <div class="version-tag">v2.16.3</div>
-                <div class="signal-bars">
-                    <div class="bar bar-1"></div>
-                    <div class="bar bar-2"></div>
-                    <div class="bar bar-3"></div>
-                    <div class="bar bar-4"></div>
-                    <div class="bar bar-5"></div>
-                </div>
-            </div>
-        </div>
+    <div class="action-bar">
+        <div class="mc-btn" onclick="downloadAll()">Download All Mods</div>
+        <div class="mc-btn" onclick="location.reload()">Refresh List</div>
+    </div>
 
-        <!-- JEI -->
-        <div class="mod-row" data-slug="jei" onclick="selectMod(this, false, '')">
-            <div class="mod-icon">
-                <img src="https://modrinth.com" alt="JEI">
-            </div>
-            <div class="mod-details">
-                <div class="mod-title">Just Enough Items (JEI)</div>
-                <div class="mod-desc">Item and recipe viewing mod built from the ground up.</div>
-            </div>
-            <div class="status-container">
-                <div class="version-tag">v19.11.0</div>
-                <div class="signal-bars">
-                    <div class="bar bar-1"></div>
-                    <div class="bar bar-2"></div>
-                    <div class="bar bar-3"></div>
-                    <div class="bar bar-4"></div>
-                    <div class="bar bar-5"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- AppleSkin -->
-        <div class="mod-row" data-slug="appleskin" onclick="selectMod(this, false, '')">
-            <div class="mod-icon">
-                <img src="https://modrinth.com" alt="AppleSkin">
-            </div>
-            <div class="mod-details">
-                <div class="mod-title">AppleSkin</div>
-                <div class="mod-desc">Food/hunger-related HUD improvements (Saturation & Exhaustion visibility).</div>
-            </div>
-            <div class="status-container">
-                <div class="version-tag">v3.0.4</div>
-                <div class="signal-bars">
-                    <div class="bar bar-1"></div>
-                    <div class="bar bar-2"></div>
-                    <div class="bar bar-3"></div>
-                    <div class="bar bar-4"></div>
-                    <div class="bar bar-5"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Jade -->
-        <div class="mod-row" data-slug="jade" onclick="selectMod(this, false, '')">
-            <div class="mod-icon">
+    <script>
+        function downloadMod(filename) {
+            // Simulated programmatic download trigger
