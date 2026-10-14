@@ -397,6 +397,15 @@
                 slug: "jade"
             },
             {
+                id: "immersive-portal",
+                name: "Immersive Portal",
+                version: "CurseForge",
+                desc: "See-through portals and seamless teleportation between dimensions.",
+                online: true,
+                iconUrl: "https://media.forgecdn.net/avatars/thumbnails/1752/364/256/256/639115299343368788.png",
+                linkUrl: "https://www.curseforge.com/minecraft/mc-mods/immersive-portal/files/all?page=1&pageSize=20&showAlphaFiles=hide"
+            },
+            {
                 id: "complementary",
                 name: "Complementary Unbound",
                 version: "v5.3",
@@ -469,10 +478,12 @@
                 document.querySelectorAll('.mod-row').forEach(r => r.classList.remove('selected'));
                 if (selectedMod && selectedMod.id === mod.id) {
                     selectedMod = null;
+                    btnDownload.innerText = "Download Mod";
                     btnDownload.classList.add('disabled');
                 } else {
                     selectedMod = mod;
                     row.classList.add('selected');
+                    btnDownload.innerText = mod.linkUrl ? "Open CurseForge" : "Download Mod";
                     if (mod.online) {
                         btnDownload.classList.remove('disabled');
                     } else {
@@ -486,6 +497,11 @@
 
         // Load each mod's real icon from the Modrinth project API (so URLs never go stale)
         modsData.forEach(async mod => {
+            if (mod.iconUrl) {
+                const img = serverList.querySelector(`.mod-row[data-id="${mod.id}"] .mod-icon`);
+                if (img) img.src = mod.iconUrl;
+                return;
+            }
             try {
                 const res = await fetch(`https://api.modrinth.com/v2/project/${mod.slug}`);
                 if (!res.ok) return;
@@ -540,6 +556,11 @@
         btnDownload.addEventListener('click', async () => {
             if (btnDownload.classList.contains('disabled') || !selectedMod || !selectedMod.online) return;
             
+            if (selectedMod.linkUrl) {
+                window.open(selectedMod.linkUrl, '_blank', 'noopener');
+                return;
+            }
+
             const originalText = btnDownload.innerText;
             btnDownload.innerText = "Fetching...";
             btnDownload.classList.add('disabled');
@@ -563,7 +584,7 @@
             btnDownloadAll.innerText = "Downloading...";
             btnDownloadAll.classList.add('disabled');
 
-            const onlineMods = modsData.filter(m => m.online);
+            const onlineMods = modsData.filter(m => m.online && !m.linkUrl);
             for (let i = 0; i < onlineMods.length; i++) {
                 const url = await resolveDownloadUrl(onlineMods[i]);
                 if (url) {
